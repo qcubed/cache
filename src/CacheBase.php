@@ -24,8 +24,7 @@ abstract class CacheBase
             $objArgsArray[] = $val;
         });
 
-        return implode(":", $objArgsArray);
-        //return implode(":", func_get_args());
+        return implode("~", $objArgsArray);
     }
 
     /**
@@ -36,6 +35,6 @@ abstract class CacheBase
      */
     public function createKeyArray($a)
     {
-        return implode(":", $a);
+        return implode("~", $a);
     }
 }
