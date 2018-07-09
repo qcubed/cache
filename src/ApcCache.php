@@ -77,12 +77,13 @@ class ApcCache extends CacheBase implements CacheInterface
     /**
      * Set the object into the cache with the given key
      *
-     * @param string $strKey   The key to use for the object
-     * @param mixed $objValue  The object to put in the cache. Can be any serializable object or value.
-     * @param int|null|\DateInterval $ttl   Number of seconds after which the key has to expire. Zero value means persist
+     * @param string $strKey The key to use for the object
+     * @param mixed $objValue The object to put in the cache. Can be any serializable object or value.
+     * @param int|null|\DateInterval $ttl Number of seconds after which the key has to expire. Zero value means persist
      *                         indefinitely. Negative value means expire immediately.
      *
      * @return bool true on success
+     * @throws Exception\InvalidArgument
      */
     public function set($strKey, $objValue, $ttl = null)
     {
@@ -184,10 +185,11 @@ class ApcCache extends CacheBase implements CacheInterface
     }
 
     /**
-     * @param iterable $values  Collection of key=>value pairs
-     * @param int|null|\DateInterval $ttl   Number of seconds after which the key has to expire. Zero value means persist
+     * @param iterable $values Collection of key=>value pairs
+     * @param int|null|\DateInterval $ttl Number of seconds after which the key has to expire. Zero value means persist
      *                         indefinitely. Negative value means expire immediately.
      * @return bool
+     * @throws \Exception
      */
     public function setMultiple($values, $ttl = null){
         if ($ttl === null) {
