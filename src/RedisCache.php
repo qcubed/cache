@@ -10,6 +10,7 @@
 namespace QCubed\Cache;
 
 use Psr\SimpleCache\CacheInterface;
+use \Predis;
 
 /**
  * Class RedisCache
@@ -31,6 +32,9 @@ class RedisCache extends CacheBase implements CacheInterface
     /** @var int */
     protected $ttl = 86400; // default ttl, one day between cache drops
 
+    /** @var null|Predis\Client  */
+    protected $conn = null;
+
     /**
      * RedisCache constructor.
      *
@@ -39,24 +43,13 @@ class RedisCache extends CacheBase implements CacheInterface
      */
     public function __construct($hostname = 'localhost', $port = 6379)
     {
-
-
-//
-//        if (function_exists('apcu_fetch')) {
-//            $this->blnUseApcu = true;
-//        }
-//        elseif (function_exists('apc_fetch')) {
-//            $this->blnUseApcu = false;
-//        }
-//        else {
-//            throw new \Exception('Neither Apc nor Apcu is installed.');
-//        }
-//
-//        if (isset($objOptionsArray['ttl'])) {
-//            $this->ttl = (int)$objOptionsArray['ttl'];
-//        }
+        // Create the predis instance
+        $this->conn = new Predis\Client([
+            'scheme' => 'tcp',
+            'host'   => $hostname,
+            'port'   => $port
+        ]);
     }
-
 
     /**
      * Get the object that has the given key from the cache
