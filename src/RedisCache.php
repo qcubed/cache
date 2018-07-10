@@ -33,6 +33,7 @@ class RedisCache extends CacheBase implements CacheInterface
 
     /**
      * RedisCache constructor.
+     *
      * @param string $hostname The server where redis is running
      * @param int $port The port on which redis is accepting connections on the host
      */
