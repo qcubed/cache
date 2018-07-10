@@ -20,7 +20,7 @@ abstract class CacheBase
         $objArgsArray = array();
         $arg_list = func_get_args();
 
-        array_walk_recursive($arg_list, function($val, $index) use (&$objArgsArray) {
+        array_walk_recursive($arg_list, function ($val, $index) use (&$objArgsArray) {
             $objArgsArray[] = $val;
         });
 
@@ -36,5 +36,25 @@ abstract class CacheBase
     public function createKeyArray($a)
     {
         return implode("~", $a);
+    }
+
+    /**
+     * Validates the key and ensures that it follows the PSR 16 standards
+     *
+     * @param $key string
+     * @return bool True when key passes checks
+     * @throws Exception\InvalidArgument
+     */
+    public static function validateKey($key)
+    {
+        if (strlen($key) == 0) {
+            throw new Exception\InvalidArgument ('Invalid key: key length is 0');
+        }
+
+        if (preg_match('/[{}()\/\\\@:]/', $key)) {
+            throw new Exception\InvalidArgument ('Invalid key: key cannot contain any character from {}()/\@: ');
+        }
+
+        return true;
     }
 }
