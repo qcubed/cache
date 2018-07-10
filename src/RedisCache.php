@@ -33,26 +33,27 @@ class RedisCache extends CacheBase implements CacheInterface
 
     /**
      * RedisCache constructor.
-     * @param null | array $objOptionsArray Configuration options.
-     *                      Accepts
-     *                      Accepts the one option 'ttl' to set the default ttl value in seconds.
-     * @throws \Exception
+     * @param string $hostname The server where redis is running
+     * @param int $port The port on which redis is accepting connections on the host
      */
-    public function __construct($objOptionsArray = null)
+    public function __construct($hostname = 'localhost', $port = 6379)
     {
-        if (function_exists('apcu_fetch')) {
-            $this->blnUseApcu = true;
-        }
-        elseif (function_exists('apc_fetch')) {
-            $this->blnUseApcu = false;
-        }
-        else {
-            throw new \Exception('Neither Apc nor Apcu is installed.');
-        }
 
-        if (isset($objOptionsArray['ttl'])) {
-            $this->ttl = (int)$objOptionsArray['ttl'];
-        }
+
+//
+//        if (function_exists('apcu_fetch')) {
+//            $this->blnUseApcu = true;
+//        }
+//        elseif (function_exists('apc_fetch')) {
+//            $this->blnUseApcu = false;
+//        }
+//        else {
+//            throw new \Exception('Neither Apc nor Apcu is installed.');
+//        }
+//
+//        if (isset($objOptionsArray['ttl'])) {
+//            $this->ttl = (int)$objOptionsArray['ttl'];
+//        }
     }
 
 
